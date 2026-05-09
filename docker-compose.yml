@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: brain-rehab-postgres
+    environment:
+      POSTGRES_DB: linapro
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      TZ: Asia/Shanghai
+    ports:
+      - "127.0.0.1:15432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d linapro"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  linapro:
+    build:
+      context: ./linapro
+      dockerfile: Dockerfile.local
+    image: brain-rehab-linapro:dev
+    container_name: brain-rehab-linapro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      TZ: Asia/Shanghai
+      LINAPRO_JWT_SECRET: ${LINAPRO_JWT_SECRET:?Set LINAPRO_JWT_SECRET in .env}
+      POSTGRES_DSN: ${POSTGRES_DSN:?Set POSTGRES_DSN in .env}
+      GF_GCFG_PATH: /app
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./infra/linapro.config.yaml:/app/config.yaml:ro
+      - linapro_uploads:/app/temp/upload
+      - linapro_output:/app/temp/output
+
+  h5:
+    build:
+      context: ./h5
+      dockerfile: Dockerfile
+    image: brain-rehab-h5:dev
+    container_name: brain-rehab-h5
+    depends_on:
+      - linapro
+    ports:
+      - "127.0.0.1:5173:80"
+
+volumes:
+  pgdata:
+  linapro_uploads:
+  linapro_output:

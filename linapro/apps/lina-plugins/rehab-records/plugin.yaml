@@ -1,0 +1,40 @@
+id: rehab-records
+name: 康复训练记录
+version: v0.1.0
+type: source
+description: 存储慢走、握拳平举、眼睛凝视和图卡游戏训练记录
+author: brain-rehab
+license: Apache-2.0
+menus:
+  - key: plugin:rehab-records:record
+    parent_key: content
+    name: 训练记录
+    path: /rehab/records
+    component: system/plugin/dynamic-page
+    perms: rehab:record:list
+    icon: lucide:activity
+    type: M
+    sort: 30
+    remark: 康复训练记录管理
+  - key: plugin:rehab-records:summary
+    parent_key: content
+    name: 康复图表
+    path: /rehab/records/summary
+    component: system/plugin/dynamic-page
+    perms: rehab:record:summary
+    icon: lucide:bar-chart-3
+    type: M
+    sort: 31
+    remark: 康复训练趋势图表
+  - key: plugin:rehab-records:record:add
+    parent_key: plugin:rehab-records:record
+    name: 记录新增
+    perms: rehab:record:add
+    type: B
+    sort: 1
+  - key: plugin:rehab-records:record:remove
+    parent_key: plugin:rehab-records:record
+    name: 记录删除
+    perms: rehab:record:remove
+    type: B
+    sort: 2

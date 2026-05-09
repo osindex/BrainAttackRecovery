@@ -1,0 +1,9 @@
+{
+  "plugin": {
+    "rehab-records": {
+      "name": "Rehab Training Records",
+      "description": "Store walking, fist-raise, eye-gaze, and card-game training records",
+      "fields": {}
+    }
+  }
+}

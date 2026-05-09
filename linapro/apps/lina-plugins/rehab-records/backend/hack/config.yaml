@@ -1,0 +1,10 @@
+gfcli:
+  gen:
+    dao:
+      - link: "${POSTGRES_DSN}"
+        path: "internal"
+        tables: "plugin_rehab_record,sys_user"
+        removePrefix: "plugin_rehab_"
+        importPrefix: "lina-plugin-rehab-records/backend/internal"
+        descriptionTag: true
+        noModelComment: true

@@ -1,0 +1,20 @@
+FROM golang:1.25-alpine AS build
+
+WORKDIR /src
+RUN apk add --no-cache bash ca-certificates git tzdata
+COPY . .
+RUN ./hack/scripts/prepare-packed-assets.sh
+RUN go build -o /out/lina ./apps/lina-core
+
+FROM alpine:3.22
+
+ENV WORKDIR=/app
+ENV TZ=Asia/Shanghai
+RUN apk add --no-cache ca-certificates tzdata
+WORKDIR $WORKDIR
+COPY --from=build /out/lina ./lina
+COPY apps/lina-core/manifest/config/config.template.yaml ./config.yaml
+COPY hack/docker/local-entrypoint.sh ./local-entrypoint.sh
+RUN chmod +x ./local-entrypoint.sh
+EXPOSE 8080
+ENTRYPOINT ["./local-entrypoint.sh"]

@@ -1,0 +1,58 @@
+:root {
+  --van-font-size-md: 18px;
+  --van-font-size-lg: 20px;
+  --van-button-default-height: 56px;
+  --van-primary-color: #1677ff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #17233d;
+  background: #f5f7fb;
+}
+
+body {
+  margin: 0;
+  background: #f5f7fb;
+}
+
+.page {
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.card {
+  margin-bottom: 16px;
+  padding: 18px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgb(23 35 61 / 8%);
+}
+
+.title {
+  margin: 0 0 12px;
+  font-size: 26px;
+  font-weight: 800;
+}
+
+.subtitle {
+  margin: 0;
+  color: #5f6b7a;
+  line-height: 1.6;
+}
+
+.big-number {
+  margin: 18px 0;
+  text-align: center;
+  font-size: 64px;
+  font-weight: 900;
+  color: #1677ff;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.safe-bottom {
+  padding-bottom: 76px;
+}

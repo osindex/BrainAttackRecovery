@@ -1,0 +1,9 @@
+{
+  "plugin": {
+    "rehab-cards": {
+      "name": "Rehab Card Management",
+      "description": "Manage stroke rehabilitation picture cards, categories, and crawler jobs",
+      "fields": {}
+    }
+  }
+}

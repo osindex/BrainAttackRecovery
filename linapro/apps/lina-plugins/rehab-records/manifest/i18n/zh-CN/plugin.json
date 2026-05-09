@@ -1,0 +1,17 @@
+{
+  "plugin": {
+    "rehab-records": {
+      "name": "康复训练记录",
+      "description": "存储慢走、握拳平举、眼睛凝视和图卡游戏训练记录",
+      "fields": {
+        "trainingType": "训练类型",
+        "occurredOn": "训练日期",
+        "durationSeconds": "训练时长",
+        "setsCount": "组数",
+        "repsCount": "次数",
+        "gazeCount": "凝视次数",
+        "reactionMs": "反应时间"
+      }
+    }
+  }
+}

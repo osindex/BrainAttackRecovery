@@ -1,0 +1,71 @@
+server:
+  address: ":8080"
+  dumpRouterMap: false
+  extensions:
+    apiDocPath: "/api.json"
+
+logger:
+  path: ""
+  file: "{Y-m-d}.log"
+  level: "all"
+  stdout: true
+  extensions:
+    structured: false
+    traceIDEnabled: false
+
+database:
+  default:
+    link: "${POSTGRES_DSN}"
+    debug: false
+
+jwt:
+  secret: "${LINAPRO_JWT_SECRET}"
+  expire: 24h
+
+session:
+  timeout: 24h
+  cleanupInterval: 5m
+
+monitor:
+  interval: 1m
+
+health:
+  timeout: 5s
+
+shutdown:
+  timeout: 30s
+
+scheduler:
+  defaultTimezone: "Asia/Shanghai"
+
+i18n:
+  default: zh-CN
+  enabled: true
+  locales:
+    - locale: en-US
+      nativeName: English
+    - locale: zh-CN
+      nativeName: 简体中文
+    - locale: zh-TW
+      nativeName: 繁體中文
+
+cluster:
+  enabled: false
+  election:
+    lease: 30s
+    renewInterval: 10s
+
+upload:
+  path: "temp/upload"
+  maxSize: 20
+
+plugin:
+  dynamic:
+    storagePath: "temp/output"
+  autoEnable:
+    - id: "content-notice"
+      withMockData: false
+    - id: "rehab-cards"
+      withMockData: true
+    - id: "rehab-records"
+      withMockData: true

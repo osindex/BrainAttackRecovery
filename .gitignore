@@ -29,6 +29,9 @@ tmp/
 .env
 .env.*
 !.env.example
+infra/.env
+infra/.env.*
+!infra/.env.example
 
 # --- linapro runtime artifacts (override repo defaults if needed) ---
 linapro/temp/

@@ -1,0 +1,16 @@
+{
+  "plugin": {
+    "rehab-cards": {
+      "name": "康复图卡管理",
+      "description": "管理卒中康复图片卡、分类与图片抓取任务",
+      "fields": {
+        "category": "分类",
+        "title": "标题",
+        "label": "答案",
+        "image": "图片",
+        "difficulty": "难度",
+        "status": "状态"
+      }
+    }
+  }
+}

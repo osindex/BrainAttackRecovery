@@ -9,4 +9,6 @@ import (
 	_ "lina-plugin-monitor-operlog/backend"
 	_ "lina-plugin-monitor-server/backend"
 	_ "lina-plugin-org-center/backend"
+	_ "lina-plugin-rehab-cards/backend"
+	_ "lina-plugin-rehab-records/backend"
 )

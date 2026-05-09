@@ -1,0 +1,10 @@
+gfcli:
+  gen:
+    dao:
+      - link: "${POSTGRES_DSN}"
+        path: "internal"
+        tables: "plugin_rehab_card_category,plugin_rehab_card,plugin_rehab_card_crawl_job,sys_user"
+        removePrefix: "plugin_rehab_"
+        importPrefix: "lina-plugin-rehab-cards/backend/internal"
+        descriptionTag: true
+        noModelComment: true

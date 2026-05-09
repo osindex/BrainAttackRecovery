@@ -1,0 +1,80 @@
+id: rehab-cards
+name: 康复图卡管理
+version: v0.1.0
+type: source
+description: 管理卒中康复图片卡、分类与图片抓取任务
+author: brain-rehab
+license: Apache-2.0
+menus:
+  - key: plugin:rehab-cards:category
+    parent_key: content
+    name: 图卡分类
+    path: /rehab/cards/categories
+    component: system/plugin/dynamic-page
+    perms: rehab:card:category:list
+    icon: lucide:folders
+    type: M
+    sort: 20
+    remark: 康复图卡分类管理
+  - key: plugin:rehab-cards:card
+    parent_key: content
+    name: 图片卡片
+    path: /rehab/cards
+    component: system/plugin/dynamic-page
+    perms: rehab:card:list
+    icon: lucide:image
+    type: M
+    sort: 21
+    remark: 康复图片卡片管理
+  - key: plugin:rehab-cards:crawler
+    parent_key: content
+    name: 图卡爬取
+    path: /rehab/cards/crawler
+    component: system/plugin/dynamic-page
+    perms: rehab:card:crawler:list
+    icon: lucide:download-cloud
+    type: M
+    sort: 22
+    remark: 按分类抓取候选图片
+  - key: plugin:rehab-cards:category:add
+    parent_key: plugin:rehab-cards:category
+    name: 分类新增
+    perms: rehab:card:category:add
+    type: B
+    sort: 1
+  - key: plugin:rehab-cards:category:edit
+    parent_key: plugin:rehab-cards:category
+    name: 分类修改
+    perms: rehab:card:category:edit
+    type: B
+    sort: 2
+  - key: plugin:rehab-cards:category:remove
+    parent_key: plugin:rehab-cards:category
+    name: 分类删除
+    perms: rehab:card:category:remove
+    type: B
+    sort: 3
+  - key: plugin:rehab-cards:card:add
+    parent_key: plugin:rehab-cards:card
+    name: 卡片新增
+    perms: rehab:card:add
+    type: B
+    sort: 1
+  - key: plugin:rehab-cards:card:edit
+    parent_key: plugin:rehab-cards:card
+    name: 卡片修改
+    perms: rehab:card:edit
+    type: B
+    sort: 2
+  - key: plugin:rehab-cards:card:remove
+    parent_key: plugin:rehab-cards:card
+    name: 卡片删除
+    perms: rehab:card:remove
+    type: B
+    sort: 3
+  - key: plugin:rehab-cards:crawler:run
+    parent_key: plugin:rehab-cards:crawler
+    name: 执行爬取
+    perms: rehab:card:crawler:run
+    type: B
+    sort: 1
