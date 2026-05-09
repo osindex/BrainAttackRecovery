@@ -5,8 +5,9 @@
 ## 服务
 
 - PostgreSQL 16：`127.0.0.1:15432`
-- LinaPro API：`http://127.0.0.1:8080`
-- 患者 H5：`http://127.0.0.1:5173`
+- 统一本地入口：`http://127.0.0.1:18080`
+- 患者 H5：`/`
+- LinaPro API：`/api/*` 反代
 
 LinaPro 容器通过 `GF_GCFG_PATH=/app` 读取 `infra/linapro.config.yaml`。
 

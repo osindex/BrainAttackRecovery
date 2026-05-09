@@ -20,6 +20,8 @@ Self-hosted stroke rehabilitation training app for single-patient use.
   - `rehab-cards`: card categories, cards, and placeholder crawler jobs.
   - `rehab-records`: training records and daily aggregates.
 - Local Docker stack uses PostgreSQL and loopback-only port bindings by default.
+- Unified local entry: `http://127.0.0.1:18080`.
+- Patient H5 is served from `/`; LinaPro API is proxied through `/api/*`.
 
 ## Local secrets
 

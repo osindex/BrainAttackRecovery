@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="慢走训练示意图">
+  <rect width="640" height="360" rx="32" fill="#eef6ff"/>
+  <path d="M72 292h496" stroke="#91caff" stroke-width="12" stroke-linecap="round"/>
+  <path d="M110 140h420" stroke="#1677ff" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="260" cy="92" r="38" fill="#ffcf9f"/>
+  <path d="M258 132c-20 44-24 82-11 116" stroke="#1677ff" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <path d="M250 164l-58 20" stroke="#1677ff" stroke-width="20" stroke-linecap="round"/>
+  <path d="M276 166l54 18" stroke="#1677ff" stroke-width="20" stroke-linecap="round"/>
+  <path d="M247 246l-48 48" stroke="#1677ff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M263 246l44 48" stroke="#1677ff" stroke-width="22" stroke-linecap="round"/>
+  <path d="M374 210c48-20 86-2 106 36" stroke="#52c41a" stroke-width="14" stroke-linecap="round" fill="none"/>
+  <text x="320" y="334" text-anchor="middle" font-size="28" fill="#17233d" font-family="Arial, sans-serif">扶稳慢走，旁边有人陪同</text>
+</svg>

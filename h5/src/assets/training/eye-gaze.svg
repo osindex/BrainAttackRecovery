@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="眼睛凝视训练示意图">
+  <rect width="640" height="360" rx="32" fill="#fff7e6"/>
+  <circle cx="170" cy="156" r="36" fill="#fa8c16"/>
+  <circle cx="470" cy="156" r="36" fill="#fa8c16"/>
+  <path d="M220 156h200" stroke="#fa8c16" stroke-width="14" stroke-linecap="round"/>
+  <path d="M406 124l42 32-42 32" stroke="#fa8c16" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M240 236c52-48 108-48 160 0" stroke="#595959" stroke-width="12" stroke-linecap="round" fill="none"/>
+  <ellipse cx="320" cy="220" rx="124" ry="54" fill="#ffffff" stroke="#595959" stroke-width="10"/>
+  <circle cx="320" cy="220" r="26" fill="#1677ff"/>
+  <text x="320" y="334" text-anchor="middle" font-size="28" fill="#17233d" font-family="Arial, sans-serif">头不动，眼睛从左看到右</text>
+</svg>

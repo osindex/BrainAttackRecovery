@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="双手握拳平举示意图">
+  <rect width="640" height="360" rx="32" fill="#f6ffed"/>
+  <circle cx="320" cy="82" r="40" fill="#ffcf9f"/>
+  <path d="M320 126v112" stroke="#52c41a" stroke-width="26" stroke-linecap="round"/>
+  <path d="M306 162H144" stroke="#52c41a" stroke-width="24" stroke-linecap="round"/>
+  <path d="M334 162h162" stroke="#52c41a" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="124" cy="162" r="24" fill="#389e0d"/>
+  <circle cx="516" cy="162" r="24" fill="#389e0d"/>
+  <path d="M302 238l-44 64" stroke="#52c41a" stroke-width="24" stroke-linecap="round"/>
+  <path d="M338 238l44 64" stroke="#52c41a" stroke-width="24" stroke-linecap="round"/>
+  <path d="M118 106h404" stroke="#b7eb8f" stroke-width="8" stroke-dasharray="18 14" stroke-linecap="round"/>
+  <text x="320" y="334" text-anchor="middle" font-size="28" fill="#17233d" font-family="Arial, sans-serif">握拳，双臂慢慢抬到肩高</text>
+</svg>

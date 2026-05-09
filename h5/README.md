@@ -7,6 +7,7 @@ Mobile-first H5 application for single-patient stroke rehabilitation training.
 - Walking timer
 - Fist-raise sets and reps counter
 - Eye-gaze left-right counter
+- Illustrated instructions, safety tips, and speech playback for physical exercises
 - Picture-card naming game
 - Local history summary
 - IndexedDB-first persistence with backend sync after device pairing

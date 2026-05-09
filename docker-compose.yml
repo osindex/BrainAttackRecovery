@@ -31,8 +31,6 @@ services:
       LINAPRO_JWT_SECRET: ${LINAPRO_JWT_SECRET:?Set LINAPRO_JWT_SECRET in .env}
       POSTGRES_DSN: ${POSTGRES_DSN:?Set POSTGRES_DSN in .env}
       GF_GCFG_PATH: /app
-    ports:
-      - "127.0.0.1:8080:8080"
     volumes:
       - ./infra/linapro.config.yaml:/app/config.yaml:ro
       - linapro_uploads:/app/temp/upload
@@ -47,7 +45,7 @@ services:
     depends_on:
       - linapro
     ports:
-      - "127.0.0.1:5173:80"
+      - "127.0.0.1:18080:80"
 
 volumes:
   pgdata:

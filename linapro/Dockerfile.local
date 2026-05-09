@@ -1,12 +1,13 @@
-FROM golang:1.25-alpine AS build
+FROM golang:1.26-alpine AS build
 
 WORKDIR /src
 RUN apk add --no-cache bash ca-certificates git tzdata
 COPY . .
 RUN ./hack/scripts/prepare-packed-assets.sh
+RUN mkdir -p apps/lina-core/internal/packed/public && touch apps/lina-core/internal/packed/public/.gitkeep
 RUN go build -o /out/lina ./apps/lina-core
 
-FROM alpine:3.22
+FROM alpine:3.20
 
 ENV WORKDIR=/app
 ENV TZ=Asia/Shanghai

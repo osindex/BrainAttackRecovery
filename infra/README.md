@@ -6,8 +6,9 @@ This directory stores local-only runtime configuration used by the root
 ## Services
 
 - PostgreSQL 16 at `127.0.0.1:15432`
-- LinaPro API at `http://127.0.0.1:8080`
-- Patient H5 at `http://127.0.0.1:5173`
+- Unified local entry at `http://127.0.0.1:18080`
+- Patient H5 at `/`
+- LinaPro API proxied at `/api/*`
 
 The LinaPro container reads `infra/linapro.config.yaml` via `GF_GCFG_PATH=/app`.
 

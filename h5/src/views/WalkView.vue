@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { showSuccessToast } from 'vant'
+import TrainingInstruction from '@/components/TrainingInstruction.vue'
+import walkImage from '@/assets/training/walk.svg'
 import { useTrainingStore } from '@/stores/training'
 import { speak } from '@/utils/speech'
 
@@ -35,6 +37,13 @@ onBeforeUnmount(() => { if (timer !== undefined) window.clearInterval(timer) })
 <template>
   <main class="page">
     <van-nav-bar title="慢走训练" left-text="返回" left-arrow @click-left="$router.back()" />
+    <TrainingInstruction
+      title="慢走训练说明"
+      :image-src="walkImage"
+      image-alt="患者扶稳慢走训练示意图"
+      :steps="['穿好防滑鞋，站稳后再开始。', '可以扶栏杆、扶墙或让家属在旁边陪同。', '用舒服的速度慢慢走，不追求速度。', '结束后点击保存，记录本次步行时长。']"
+      :safety-tips="['头晕、胸闷、腿软时立即停止。', '地面要干燥，避免拖鞋和湿滑地面。', '首次训练建议有人陪同。']"
+    />
     <section class="card">
       <p class="subtitle">按开始后慢走，结束时记录本次步行时长。</p>
       <div class="big-number">{{ displayTime }}</div>

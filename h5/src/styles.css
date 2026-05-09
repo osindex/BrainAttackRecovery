@@ -19,6 +19,31 @@ body {
   box-sizing: border-box;
 }
 
+.page .van-nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  margin: -16px -16px 16px;
+  min-height: 58px;
+  box-shadow: 0 8px 20px rgb(23 35 61 / 12%);
+}
+
+.page .van-nav-bar__left {
+  padding-left: 16px;
+}
+
+.page .van-nav-bar__arrow,
+.page .van-nav-bar__text {
+  color: #0958d9;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.page .van-nav-bar__title {
+  font-size: 20px;
+  font-weight: 800;
+}
+
 .card {
   margin-bottom: 16px;
   padding: 18px;
