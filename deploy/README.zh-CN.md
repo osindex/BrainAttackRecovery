@@ -3,9 +3,11 @@
 本文档说明如何在服务器上部署本项目。部署假设：
 
 - PostgreSQL 已经安装在**宿主机**上
-- PostgreSQL 监听宿主机 `127.0.0.1:5432`
+- PostgreSQL 监听宿主机 `5432`
 - Docker 只运行两个容器：`linapro` 和 `h5`
 - 不在 `docker-compose.prod.yml` 里再启动 PostgreSQL 容器
+- 两个容器加入已存在的 `1panel-network`
+- 只对外暴露 H5 入口 `18080`
 
 ---
 
@@ -19,6 +21,8 @@
 ├── .env.prod
 ├── infra/
 │   └── linapro.config.yaml
+├── deploy/
+│   └── nginx.prod.conf
 ├── data/
 │   ├── linapro-upload/
 │   └── linapro-output/
@@ -54,7 +58,31 @@ createdb -h 127.0.0.1 -p 5432 -U postgres linapro
 
 如果数据库已经存在，可以跳过。
 
-> 注意：`linapro` 容器使用 `network_mode: host`，所以容器内访问 `127.0.0.1:5432` 就是访问宿主机 PostgreSQL。
+如果 PostgreSQL 只监听 `127.0.0.1`，Docker 容器可能无法通过 `host.docker.internal` 访问。请根据你的服务器环境检查：
+
+```bash
+sudo ss -ltnp | grep 5432
+```
+
+如果需要允许 Docker 网关访问，通常要调整 PostgreSQL：
+
+```conf
+# postgresql.conf
+listen_addresses = '*'
+
+# pg_hba.conf，示例网段按你的 Docker 网关实际网段调整
+host    linapro    postgres    172.16.0.0/12    md5
+```
+
+修改后重启 PostgreSQL：
+
+```bash
+sudo systemctl restart postgresql
+```
+
+也可以用更严格的 Docker 网关 IP 替代 `172.16.0.0/12`。
+
+> 注意：生产 compose 使用 1Panel 的 `1panel-network`，`linapro` 容器通过 `host.docker.internal:5432` 访问宿主机 PostgreSQL。请确保 PostgreSQL 允许 Docker 网关来源连接。
 
 ---
 
@@ -66,6 +94,7 @@ createdb -h 127.0.0.1 -p 5432 -U postgres linapro
 deploy/docker-compose.prod.yml  -> /opt/brain-rehab/docker-compose.prod.yml
 deploy/.env.prod.example        -> /opt/brain-rehab/.env.prod
 infra/linapro.config.yaml       -> /opt/brain-rehab/infra/linapro.config.yaml
+deploy/nginx.prod.conf          -> /opt/brain-rehab/deploy/nginx.prod.conf
 deploy/backup.sh                -> /opt/brain-rehab/backup.sh
 deploy/restore.sh               -> /opt/brain-rehab/restore.sh
 ```
@@ -76,6 +105,8 @@ deploy/restore.sh               -> /opt/brain-rehab/restore.sh
 cp deploy/docker-compose.prod.yml /opt/brain-rehab/docker-compose.prod.yml
 cp deploy/.env.prod.example /opt/brain-rehab/.env.prod
 cp infra/linapro.config.yaml /opt/brain-rehab/infra/linapro.config.yaml
+mkdir -p /opt/brain-rehab/deploy
+cp deploy/nginx.prod.conf /opt/brain-rehab/deploy/nginx.prod.conf
 cp deploy/backup.sh /opt/brain-rehab/backup.sh
 cp deploy/restore.sh /opt/brain-rehab/restore.sh
 chmod +x /opt/brain-rehab/backup.sh /opt/brain-rehab/restore.sh
@@ -97,7 +128,7 @@ nano /opt/brain-rehab/.env.prod
 H5_IMAGE=ghcr.io/<owner>/<repo>/brain-rehab-h5:main
 LINAPRO_IMAGE=ghcr.io/<owner>/<repo>/brain-rehab-linapro:main
 
-POSTGRES_DSN=pgsql:postgres:<你的PostgreSQL密码>@tcp(127.0.0.1:5432)/linapro?sslmode=disable
+POSTGRES_DSN=pgsql:postgres:<你的PostgreSQL密码>@tcp(host.docker.internal:5432)/linapro?sslmode=disable
 LINAPRO_JWT_SECRET=<至少32位随机字符串>
 ```
 
@@ -118,6 +149,18 @@ PAT 至少需要 `read:packages` 权限。
 ---
 
 ## 5. 启动服务
+
+先确认 1Panel 网络已存在：
+
+```bash
+docker network inspect 1panel-network >/dev/null
+```
+
+如果不存在，请先在 1Panel 中创建，或者执行：
+
+```bash
+docker network create 1panel-network
+```
 
 ```bash
 cd /opt/brain-rehab
@@ -142,7 +185,9 @@ docker compose --env-file .env.prod -f docker-compose.prod.yml logs -f h5
 
 ## 6. 访问地址
 
-因为生产 compose 使用 `network_mode: host`，H5 nginx 会直接监听宿主机 `18080`。
+生产 compose 会把 `linapro` 和 `h5` 加入已存在的 `1panel-network`。只有 `h5` 对外暴露 `18080`，`linapro` 不直接暴露宿主机端口。
+
+生产 nginx 使用 `deploy/nginx.prod.conf`，把 `/api/*` 反代到同一 Docker 网络内的 `linapro:8080`。
 
 本机访问：
 
@@ -254,7 +299,7 @@ psql -h 127.0.0.1 -p 5432 -U postgres linapro
 再检查 `.env.prod`：
 
 ```env
-POSTGRES_DSN=pgsql:postgres:<密码>@tcp(127.0.0.1:5432)/linapro?sslmode=disable
+POSTGRES_DSN=pgsql:postgres:<密码>@tcp(host.docker.internal:5432)/linapro?sslmode=disable
 ```
 
 ### 2. `18080` 端口被占用
