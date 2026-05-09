@@ -1,0 +1,62 @@
+<script lang="ts" setup>
+import type { VbenFormSchema } from '@vben/common-ui';
+
+import { computed } from 'vue';
+
+import { AuthenticationLogin, z } from '@vben/common-ui';
+import { $t } from '@vben/locales';
+
+import PluginSlotOutlet from '#/components/plugin/plugin-slot-outlet.vue';
+import { pluginSlotKeys } from '#/plugins/plugin-slots';
+import { publicFrontendSettings } from '#/runtime/public-frontend';
+import { useAuthStore } from '#/store';
+
+defineOptions({ name: 'Login' });
+
+const authStore = useAuthStore();
+const loginSubtitle = computed(
+  () =>
+    publicFrontendSettings.auth.loginSubtitle ||
+    $t('authentication.loginSubtitle'),
+);
+
+const formSchema = computed((): VbenFormSchema[] => {
+  return [
+    {
+      component: 'VbenInput',
+      componentProps: {
+        placeholder: $t('authentication.usernameTip'),
+      },
+      fieldName: 'username',
+      label: $t('authentication.username'),
+      rules: z.string().min(1, { message: $t('authentication.usernameTip') }),
+    },
+    {
+      component: 'VbenInputPassword',
+      componentProps: {
+        placeholder: $t('authentication.passwordTip'),
+      },
+      fieldName: 'password',
+      label: $t('authentication.password'),
+      rules: z.string().min(1, { message: $t('authentication.passwordTip') }),
+    },
+  ];
+});
+</script>
+
+<template>
+  <div>
+    <AuthenticationLogin
+      :form-schema="formSchema"
+      :loading="authStore.loginLoading"
+      :show-code-login="false"
+      :show-forget-password="false"
+      :show-qrcode-login="false"
+      :show-register="false"
+      :show-third-party-login="false"
+      :sub-title="loginSubtitle"
+      @submit="authStore.authLogin"
+    />
+    <PluginSlotOutlet :slot-key="pluginSlotKeys.authLoginAfter" class="mt-4" />
+  </div>
+</template>

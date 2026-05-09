@@ -1,0 +1,39 @@
+# --- editors / OS ---
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# --- node / pnpm ---
+node_modules/
+.pnpm-store/
+pnpm-debug.log*
+npm-debug.log*
+
+# --- build artifacts ---
+dist/
+build/
+out/
+.cache/
+.turbo/
+
+# --- logs / temp ---
+*.log
+logs/
+temp/
+tmp/
+
+# --- env / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- linapro runtime artifacts (override repo defaults if needed) ---
+linapro/temp/
+linapro/apps/lina-core/temp/
+linapro/apps/lina-vben/node_modules/
+linapro/hack/tests/node_modules/
+linapro/hack/tests/test-results/
+linapro/hack/tests/playwright-report/

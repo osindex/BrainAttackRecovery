@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "paths": {
+      "@pages/*": ["./pages/*"],
+      "@fixtures/*": ["./fixtures/*"]
+    }
+  },
+  "include": [
+    "e2e/**/*.ts",
+    "fixtures/**/*.ts",
+    "pages/**/*.ts",
+    "support/**/*.ts",
+    "global-setup.ts",
+    "playwright.config.ts"
+  ]
+}

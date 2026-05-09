@@ -1,0 +1,250 @@
+{
+  "legacyDirectoryMap": {
+    "e2e/system": [
+      "e2e/iam",
+      "e2e/settings",
+      "e2e/org",
+      "e2e/content",
+      "e2e/scheduler"
+    ],
+    "e2e/monitor": [
+      "e2e/monitor/operlog",
+      "e2e/monitor/loginlog",
+      "e2e/monitor/online",
+      "e2e/monitor/server"
+    ],
+    "e2e/plugin": ["e2e/extension/plugin"],
+    "e2e/debug": ["debug"],
+    "e2e/system/job/helpers.ts": ["support/api/job.ts"]
+  },
+  "moduleScopes": {
+    "auth": ["e2e/auth"],
+    "dashboard": ["e2e/dashboard"],
+    "dialect": ["e2e/dialect"],
+    "about": ["e2e/about"],
+    "iam": ["e2e/iam"],
+    "iam:user": ["e2e/iam/user"],
+    "iam:role": ["e2e/iam/role"],
+    "iam:menu": ["e2e/iam/menu"],
+    "settings": ["e2e/settings"],
+    "settings:dict": ["e2e/settings/dict"],
+    "settings:config": ["e2e/settings/config"],
+    "settings:file": ["e2e/settings/file"],
+    "org": ["e2e/org"],
+    "org:dept": ["e2e/org/dept"],
+    "org:post": ["e2e/org/post"],
+    "org:user-org": ["e2e/org/user-org"],
+    "content": ["e2e/content"],
+    "content:notice": ["e2e/content/notice"],
+    "content:message": ["e2e/content/message"],
+    "i18n": ["e2e/i18n"],
+    "monitor": ["e2e/monitor"],
+    "monitor:operlog": ["e2e/monitor/operlog"],
+    "monitor:loginlog": ["e2e/monitor/loginlog"],
+    "monitor:online": ["e2e/monitor/online"],
+    "monitor:server": ["e2e/monitor/server"],
+    "scheduler": ["e2e/scheduler"],
+    "scheduler:job": ["e2e/scheduler/job"],
+    "extension": ["e2e/extension"],
+    "extension:plugin": ["e2e/extension/plugin"]
+  },
+  "smoke": [
+    "e2e/auth/TC0001-login-success.ts",
+    "e2e/dashboard/TC0077-workspace-navigation.ts",
+    "e2e/iam/user/TC0005-user-crud.ts",
+    "e2e/settings/config/TC0100-config-crud.ts",
+    "e2e/settings/file/TC0048-file-management.ts",
+    "e2e/scheduler/job/TC0097-job-navigation-and-help-copy.ts",
+    "e2e/extension/plugin/TC0099-host-plugin-boundary-regression.ts"
+  ],
+  "serial": [
+    "e2e/about/TC0044-api-docs-page.ts",
+    "e2e/auth/TC0003-logout.ts",
+    "e2e/auth/TC0102-login-page-presentation.ts",
+    "e2e/content",
+    "e2e/dialect/TC0165-sqlite-mode-business-zero-impact.ts",
+    "e2e/extension/plugin",
+    "e2e/iam/menu",
+    "e2e/iam/user/TC0005-user-crud.ts",
+    "e2e/iam/user/TC0062-user-role.ts",
+    "e2e/i18n/TC0107-runtime-i18n-switch.ts",
+    "e2e/i18n/TC0108-english-runtime-page-audit.ts",
+    "e2e/i18n/TC0110-editable-master-data-raw-in-english.ts",
+    "e2e/i18n/TC0111-plugin-page-static-labels-no-raw-i18n-keys.ts",
+    "e2e/i18n/TC0112-english-layout-regression.ts",
+    "e2e/i18n/TC0116-english-built-in-governance-data-localization.ts",
+    "e2e/i18n/TC0124-runtime-i18n-etag.ts",
+    "e2e/i18n/TC0128-traditional-chinese-plugin-pages.ts",
+    "e2e/i18n/TC0129-traditional-chinese-apidoc.ts",
+    "e2e/i18n/TC0135-backend-error-localization.ts",
+    "e2e/i18n/TC0136-backend-export-localization.ts",
+    "e2e/i18n/TC0137-backend-hardcoded-chinese-regression.ts",
+    "e2e/i18n/TC0141-org-dict-config-english-layout.ts",
+    "e2e/monitor",
+    "e2e/org",
+    "e2e/scheduler/job",
+    "e2e/settings/config",
+    "e2e/settings/dict",
+    "e2e/settings/user/TC0170-user-data-permission.ts"
+  ],
+  "serialIsolation": [
+    {
+      "entry": "e2e/about/TC0044-api-docs-page.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache"],
+      "reason": "API documentation page checks source plugin documentation sync and localized runtime resources."
+    },
+    {
+      "entry": "e2e/auth/TC0003-logout.ts",
+      "categories": ["authSession"],
+      "reason": "Logout verifies shared authenticated browser state and must not overlap with authenticated flows in the same worker state."
+    },
+    {
+      "entry": "e2e/auth/TC0102-login-page-presentation.ts",
+      "categories": ["systemConfig"],
+      "reason": "The login presentation assertions mutate the global login panel layout config."
+    },
+    {
+      "entry": "e2e/content",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed", "permissionMatrix"],
+      "reason": "Content tests depend on the content-notice source plugin and its mock data being installed and enabled; message boundary regressions also create temporary role permissions."
+    },
+    {
+      "entry": "e2e/dialect/TC0165-sqlite-mode-business-zero-impact.ts",
+      "categories": ["pluginLifecycle"],
+      "reason": "SQLite business zero-impact validation installs, enables, disables, and uninstalls a source plugin against the shared runtime."
+    },
+    {
+      "entry": "e2e/extension/plugin",
+      "categories": [
+        "pluginLifecycle",
+        "permissionMatrix",
+        "sharedDatabaseSeed",
+        "filesystemArtifact",
+        "systemConfig",
+        "runtimeI18nCache"
+      ],
+      "reason": "Plugin tests install, enable, disable, uninstall, upload, sync, and authorize plugins while touching plugin artifacts and generated menus."
+    },
+    {
+      "entry": "e2e/iam/menu",
+      "categories": ["permissionMatrix", "pluginLifecycle", "filesystemArtifact"],
+      "reason": "Menu tests create and update shared menu and permission matrix data, authorization tests sync plugin menus before assigning permissions, and dynamic plugin menu regressions may build runtime artifacts."
+    },
+    {
+      "entry": "e2e/iam/user/TC0005-user-crud.ts",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed"],
+      "reason": "User CRUD enables the org-center source plugin before validating department and post fields backed by plugin mock data."
+    },
+    {
+      "entry": "e2e/iam/user/TC0062-user-role.ts",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed"],
+      "reason": "User-role association checks enable the org-center source plugin and read shared organization mock data."
+    },
+    {
+      "entry": "e2e/settings/user/TC0170-user-data-permission.ts",
+      "categories": ["pluginLifecycle", "permissionMatrix", "sharedDatabaseSeed"],
+      "reason": "User data-scope regression enables the org-center source plugin, creates temporary department data, and assigns menu permissions to temporary roles."
+    },
+    {
+      "entry": "e2e/i18n/TC0107-runtime-i18n-switch.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache", "filesystemArtifact"],
+      "reason": "Runtime i18n switching verifies dynamic plugin language bundles and cache refresh behavior."
+    },
+    {
+      "entry": "e2e/i18n/TC0108-english-runtime-page-audit.ts",
+      "categories": [
+        "pluginLifecycle",
+        "runtimeI18nCache",
+        "sharedDatabaseSeed",
+        "filesystemArtifact"
+      ],
+      "reason": "English runtime page audit enables source and dynamic plugins and validates translated runtime pages."
+    },
+    {
+      "entry": "e2e/i18n/TC0110-editable-master-data-raw-in-english.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache", "sharedDatabaseSeed"],
+      "reason": "Editable master data localization checks enable source plugins and read their shared mock data under the English runtime locale."
+    },
+    {
+      "entry": "e2e/i18n/TC0111-plugin-page-static-labels-no-raw-i18n-keys.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache", "sharedDatabaseSeed"],
+      "reason": "Plugin static-label localization checks enable multiple source plugins and load their mock data before auditing English pages."
+    },
+    {
+      "entry": "e2e/i18n/TC0112-english-layout-regression.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache"],
+      "reason": "English layout checks enable the plugin-demo-source plugin and depend on runtime i18n resources."
+    },
+    {
+      "entry": "e2e/i18n/TC0116-english-built-in-governance-data-localization.ts",
+      "categories": ["dictionaryData", "sharedDatabaseSeed"],
+      "reason": "Built-in governance localization checks read shared dictionary, scheduler, audit log, and login log seed data while creating fresh audit records."
+    },
+    {
+      "entry": "e2e/i18n/TC0124-runtime-i18n-etag.ts",
+      "categories": ["runtimeI18nCache"],
+      "reason": "Runtime i18n ETag checks depend on shared translation bundle versions and cache revalidation semantics."
+    },
+    {
+      "entry": "e2e/i18n/TC0128-traditional-chinese-plugin-pages.ts",
+      "categories": [
+        "pluginLifecycle",
+        "runtimeI18nCache",
+        "sharedDatabaseSeed",
+        "filesystemArtifact"
+      ],
+      "reason": "Traditional Chinese plugin page checks install dynamic plugins and enable source plugins before validating translated pages."
+    },
+    {
+      "entry": "e2e/i18n/TC0129-traditional-chinese-apidoc.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache", "filesystemArtifact"],
+      "reason": "Traditional Chinese API documentation checks install plugin API resources and validate localized API docs."
+    },
+    {
+      "entry": "e2e/i18n/TC0135-backend-error-localization.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache"],
+      "reason": "Backend error localization checks require source plugins to be installed and enabled before asserting localized errors."
+    },
+    {
+      "entry": "e2e/i18n/TC0136-backend-export-localization.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache", "sharedDatabaseSeed"],
+      "reason": "Backend export localization checks enable multiple source plugins and validate localized export labels."
+    },
+    {
+      "entry": "e2e/i18n/TC0137-backend-hardcoded-chinese-regression.ts",
+      "categories": ["pluginLifecycle", "runtimeI18nCache"],
+      "reason": "Backend hardcoded Chinese regression checks enable source plugins before probing localized backend surfaces."
+    },
+    {
+      "entry": "e2e/i18n/TC0141-org-dict-config-english-layout.ts",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed"],
+      "reason": "Organization, dictionary, and config English layout regression enables the org-center source plugin and reads shared seed records across localized pages."
+    },
+    {
+      "entry": "e2e/monitor",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed"],
+      "reason": "Monitor tests depend on monitor source plugins and shared login or operation log data."
+    },
+    {
+      "entry": "e2e/org",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed"],
+      "reason": "Organization tests depend on the org-center source plugin and shared department or post seed data."
+    },
+    {
+      "entry": "e2e/scheduler/job",
+      "categories": ["pluginLifecycle", "sharedDatabaseSeed", "systemConfig"],
+      "reason": "Scheduler job tests mutate job data, shell execution config, plugin cascades, and generated log state."
+    },
+    {
+      "entry": "e2e/settings/config",
+      "categories": ["systemConfig"],
+      "reason": "System config tests mutate global runtime and frontend configuration values."
+    },
+    {
+      "entry": "e2e/settings/dict",
+      "categories": ["dictionaryData", "pluginLifecycle"],
+      "reason": "Dictionary tests create, import, edit, export, and delete shared dictionary types and data; dictionary option permission regressions also prepare source plugin menus before assigning business-only permissions."
+    }
+  ],
+  "parallelIsolationAllowlist": []
+}
