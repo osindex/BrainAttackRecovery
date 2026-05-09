@@ -48,3 +48,14 @@ docker compose up --build
 - 在根目录执行 `docker compose config`
 
 未登录 Docker Hub 的环境可能因为基础镜像拉取触发 HTTP 429 限流，导致 `docker compose build` 失败。
+
+## GitHub 容器打包
+
+GitHub Actions 工作流 `.github/workflows/docker-images.yml` 会构建两个镜像：
+
+- `ghcr.io/<owner>/<repo>/brain-rehab-h5`
+- `ghcr.io/<owner>/<repo>/brain-rehab-linapro`
+
+Pull Request 只构建不推送；推送到 `main` 或版本 tag 时会推送到 GHCR。
+
+本地 H5 Dockerfile 使用已经构建好的 `h5/dist`，用于绕开本机 Node 镜像版本不一致问题。CI 使用 `h5/Dockerfile.ci`，会在容器内执行干净的 Node 构建。

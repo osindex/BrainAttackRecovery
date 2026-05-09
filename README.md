@@ -48,3 +48,14 @@ Validated locally:
 - `docker compose config`
 
 `docker compose build` may still fail in unauthenticated environments because Docker Hub can rate-limit base-image pulls with HTTP 429.
+
+## GitHub container builds
+
+GitHub Actions workflow `.github/workflows/docker-images.yml` builds two images:
+
+- `ghcr.io/<owner>/<repo>/brain-rehab-h5`
+- `ghcr.io/<owner>/<repo>/brain-rehab-linapro`
+
+Pull requests build images without pushing. Pushes to `main` and version tags push images to GHCR.
+
+The local H5 Dockerfile uses prebuilt `h5/dist` to avoid local Node image mismatches. CI uses `h5/Dockerfile.ci`, which performs a clean Node build inside the container.
