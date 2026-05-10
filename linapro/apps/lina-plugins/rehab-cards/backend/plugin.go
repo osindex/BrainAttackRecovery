@@ -9,6 +9,7 @@ import (
 	cardcontroller "lina-plugin-rehab-cards/backend/internal/controller/card"
 	categorycontroller "lina-plugin-rehab-cards/backend/internal/controller/category"
 	crawlercontroller "lina-plugin-rehab-cards/backend/internal/controller/crawler"
+	imagecontroller "lina-plugin-rehab-cards/backend/internal/controller/image"
 )
 
 // pluginID is the immutable identifier published by the embedded source plugin.
@@ -46,6 +47,7 @@ func registerRoutes(ctx context.Context, registrar pluginhost.HTTPRegistrar) err
 			group.Bind(categorycontroller.NewV1())
 			group.Bind(cardcontroller.NewV1())
 			group.Bind(crawlercontroller.NewV1())
+			group.Bind(imagecontroller.NewV1())
 		})
 	})
 	return nil

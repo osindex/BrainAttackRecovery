@@ -187,6 +187,8 @@ docker compose --env-file .env.prod -f docker-compose.prod.yml logs -f h5
 
 生产 compose 会把 `linapro` 和 `h5` 加入已存在的 `1panel-network`。只有 `h5` 对外暴露 `18080`，`linapro` 不直接暴露宿主机端口。
 
+注意：`h5` 容器内部 nginx 监听 `80`，宿主机通过 compose 映射为 `18080:80`。所以不要把 `deploy/nginx.prod.conf` 里的 `listen` 改成 `18080`。
+
 生产 nginx 使用 `deploy/nginx.prod.conf`，把 `/api/*` 反代到同一 Docker 网络内的 `linapro:8080`。
 
 本机访问：

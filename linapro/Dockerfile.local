@@ -2,6 +2,8 @@ FROM golang:1.26-alpine AS build
 
 WORKDIR /src
 RUN apk add --no-cache bash ca-certificates git tzdata
+ENV GOPROXY=https://goproxy.cn,direct
+ENV GOSUMDB=sum.golang.google.cn
 COPY . .
 RUN bash ./hack/scripts/prepare-packed-assets.sh
 RUN mkdir -p apps/lina-core/internal/packed/public && touch apps/lina-core/internal/packed/public/.gitkeep

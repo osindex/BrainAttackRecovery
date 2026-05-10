@@ -131,7 +131,9 @@ func (s *serviceImpl) Run(ctx context.Context, in RunInput) (int64, error) {
 	return jobId, err
 }
 
-// starterImageURL returns a real object photo from Wikimedia Commons for common MVP labels.
+// starterImageURL returns a relative image-proxy URL pointing to a real object photo
+// served through the rehab-cards Wikimedia image proxy. Using a relative URL keeps
+// the patient H5 inside the same origin as the LinaPro backend.
 func starterImageURL(keyword string, index int) string {
 	known := map[string]string{
 		"苹果": "Red_Apple.jpg",
@@ -141,7 +143,7 @@ func starterImageURL(keyword string, index int) string {
 		"汽车": "2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg",
 	}
 	if fileName, ok := known[keyword]; ok {
-		return "https://commons.wikimedia.org/wiki/Special:FilePath/" + url.PathEscape(fileName)
+		return "/api/v1/rehab/card/image/wiki?file=" + url.QueryEscape(fileName)
 	}
-	return "https://commons.wikimedia.org/wiki/Special:FilePath/Red_Apple.jpg?starter=" + url.QueryEscape(fmt.Sprintf("%s-%d", keyword, index))
+	return "/api/v1/rehab/card/image/wiki?file=" + url.QueryEscape("Red_Apple.jpg") + "&starter=" + url.QueryEscape(fmt.Sprintf("%s-%d", keyword, index))
 }

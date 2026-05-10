@@ -10,6 +10,6 @@ interface CardListEnvelope {
 
 export async function fetchCards(): Promise<CardItem[]> {
   await ensureGuestLogin()
-  const response = await http.get<CardListEnvelope>('/rehab/card', { params: { pageNum: 1, pageSize: 50, status: 1 } })
+  const response = await http.get<CardListEnvelope>('/rehab/card', { params: { pageNum: 1, pageSize: 100, status: 1 } })
   return response.data.data?.list ?? []
 }
