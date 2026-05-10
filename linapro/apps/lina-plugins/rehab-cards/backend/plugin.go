@@ -27,7 +27,10 @@ func init() {
 	pluginhost.RegisterSourcePlugin(plugin)
 }
 
-// registerRoutes binds card, category, and crawler routes through host middleware.
+// registerRoutes binds rehab-cards routes through host middleware. The image
+// proxy is exposed publicly so the patient H5 can render <img> tags without
+// attaching a JWT, while CRUD and crawler routes still require authentication
+// and per-permission authorization.
 func registerRoutes(ctx context.Context, registrar pluginhost.HTTPRegistrar) error {
 	routes := registrar.Routes()
 	middlewares := routes.Middlewares()
@@ -39,6 +42,7 @@ func registerRoutes(ctx context.Context, registrar pluginhost.HTTPRegistrar) err
 			middlewares.RequestBodyLimit(),
 			middlewares.Ctx(),
 		)
+		group.Bind(imagecontroller.NewV1())
 		group.Group("/", func(group pluginhost.RouteGroup) {
 			group.Middleware(
 				middlewares.Auth(),
@@ -47,7 +51,6 @@ func registerRoutes(ctx context.Context, registrar pluginhost.HTTPRegistrar) err
 			group.Bind(categorycontroller.NewV1())
 			group.Bind(cardcontroller.NewV1())
 			group.Bind(crawlercontroller.NewV1())
-			group.Bind(imagecontroller.NewV1())
 		})
 	})
 	return nil
