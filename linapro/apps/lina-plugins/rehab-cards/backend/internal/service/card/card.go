@@ -102,25 +102,25 @@ type saveRow struct {
 
 // List queries picture cards with pagination and filters.
 func (s *serviceImpl) List(ctx context.Context, in ListInput) (*ListOutput, error) {
-	model := g.DB().Model(TableName+" c").Ctx(ctx).LeftJoin("plugin_rehab_card_category cat", "cat.id=c.category_id").Fields("c.*, cat.name AS category_name")
+	base := g.DB().Model(TableName+" c").Ctx(ctx).LeftJoin("plugin_rehab_card_category cat", "cat.id=c.category_id")
 	if in.CategoryId > 0 {
-		model = model.Where("c.category_id", in.CategoryId)
+		base = base.Where("c.category_id", in.CategoryId)
 	}
 	if in.Title != "" {
-		model = model.WhereLike("c.title", "%"+in.Title+"%")
+		base = base.WhereLike("c.title", "%"+in.Title+"%")
 	}
 	if in.Status == 0 || in.Status == 1 {
-		model = model.Where("c.status", in.Status)
+		base = base.Where("c.status", in.Status)
 	}
 	if in.Difficulty > 0 {
-		model = model.Where("c.difficulty", in.Difficulty)
+		base = base.Where("c.difficulty", in.Difficulty)
 	}
-	total, err := model.Count()
+	total, err := base.Clone().Fields("c.id").Count()
 	if err != nil {
 		return nil, err
 	}
 	list := make([]*Entity, 0)
-	err = model.Page(in.PageNum, in.PageSize).OrderAsc("c.sort").OrderDesc("c.id").Scan(&list)
+	err = base.Fields("c.*, cat.name AS category_name").Page(in.PageNum, in.PageSize).OrderAsc("c.sort").OrderDesc("c.id").Scan(&list)
 	if err != nil {
 		return nil, err
 	}

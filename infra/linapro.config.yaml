@@ -66,6 +66,6 @@ plugin:
     - id: "content-notice"
       withMockData: false
     - id: "rehab-cards"
-      withMockData: true
+      withMockData: false
     - id: "rehab-records"
       withMockData: true

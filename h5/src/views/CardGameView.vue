@@ -33,60 +33,60 @@ const QUESTIONS_PER_ROUND = 6
 const MIN_OPTIONS = 3
 const MAX_OPTIONS = 6
 
-function proxyCard(label: string, file: string, category: string, difficulty: number, _sort: number): CardItem {
+function makeCard(label: string, url: string, category: string, difficulty: number): CardItem {
   return {
     id: 0,
     categoryId: 0,
     categoryName: category,
     title: label,
     label,
-    imageUrl: `/api/v1/rehab/card/image/wiki?file=${encodeURIComponent(file)}`,
+    imageUrl: url,
     difficulty,
   }
 }
 
 const fallbackCards: CardItem[] = [
   // food
-  proxyCard('苹果', 'Red_Apple.jpg', '食物', 1, 10),
-  proxyCard('香蕉', 'Bananavarieties.jpg', '食物', 1, 11),
-  proxyCard('橙子', 'Orange_fruit.jpg', '食物', 1, 12),
-  proxyCard('西瓜', 'Watermelon_cross_BNC.jpg', '食物', 1, 13),
-  proxyCard('草莓', 'Strawberry_Single1.jpg', '食物', 2, 14),
-  proxyCard('梨', 'Yellow_pear_on_a_black_background.jpg', '食物', 2, 15),
+  makeCard('苹果', 'https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg', '食物', 1),
+  makeCard('香蕉', 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg', '食物', 1),
+  makeCard('橙子', 'https://upload.wikimedia.org/wikipedia/commons/8/85/Orange_fruit.jpg', '食物', 1),
+  makeCard('西瓜', 'https://upload.wikimedia.org/wikipedia/commons/a/ae/Watermelon_cross_BNC.jpg', '食物', 1),
+  makeCard('草莓', 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Strawberry_Single1.jpg', '食物', 2),
+  makeCard('梨', 'https://upload.wikimedia.org/wikipedia/commons/d/dd/Yellow_pear_on_a_black_background.jpg', '食物', 2),
   // daily
-  proxyCard('杯子', 'White_cup_and_saucer.jpg', '日用品', 1, 20),
-  proxyCard('勺子', 'Spoon_silver.jpg', '日用品', 2, 21),
-  proxyCard('筷子', 'Chopsticks-candc.jpg', '日用品', 2, 22),
-  proxyCard('水壶', 'WWII_Allied_Canteen.jpg', '日用品', 3, 23),
+  makeCard('杯子', 'https://upload.wikimedia.org/wikipedia/commons/f/fb/White_cup_and_saucer.jpg', '日用品', 1),
+  makeCard('勺子', 'https://upload.wikimedia.org/wikipedia/commons/7/70/Spoon_silver.jpg', '日用品', 2),
+  makeCard('筷子', 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Chopsticks-candc.jpg', '日用品', 2),
+  makeCard('水壶', 'https://upload.wikimedia.org/wikipedia/commons/c/c8/WWII_Allied_Canteen.jpg', '日用品', 3),
   // animals
-  proxyCard('小狗', 'Golden_Retriever_Carlos_(10581910556).jpg', '动物', 1, 30),
-  proxyCard('小猫', 'Felis_catus-cat_on_snow.jpg', '动物', 1, 31),
-  proxyCard('兔子', 'Oryctolagus_cuniculus_Rcdo.jpg', '动物', 2, 32),
-  proxyCard('马', 'Hauspferd.JPG', '动物', 2, 33),
-  proxyCard('鸡', 'Gallus_gallus_domesticus_Brown_Leghorn.jpg', '动物', 2, 34),
-  proxyCard('牛', 'Cow_female_black_white.jpg', '动物', 2, 35),
-  proxyCard('羊', 'Sheep_in_field.JPG', '动物', 2, 36),
-  proxyCard('金鱼', 'Goldfish3.jpg', '动物', 3, 37),
-  proxyCard('蝴蝶', 'Monarch_In_May.jpg', '动物', 3, 38),
-  proxyCard('蚱蜢', 'Grasshopper_1.jpg', '动物', 3, 39),
-  proxyCard('熊猫', 'Panda_Cub_from_Wolong,_Sichuan,_China.JPG', '动物', 2, 40),
+  makeCard('小狗', 'https://upload.wikimedia.org/wikipedia/commons/9/93/Golden_Retriever_Carlos_%2810581910556%29.jpg', '动物', 1),
+  makeCard('小猫', 'https://upload.wikimedia.org/wikipedia/commons/b/b6/Felis_catus-cat_on_snow.jpg', '动物', 1),
+  makeCard('兔子', 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Oryctolagus_cuniculus_Rcdo.jpg', '动物', 2),
+  makeCard('马', 'https://upload.wikimedia.org/wikipedia/commons/0/01/Hauspferd.JPG', '动物', 2),
+  makeCard('鸡', 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Gallus_gallus_domesticus_Brown_Leghorn.jpg', '动物', 2),
+  makeCard('牛', 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Cow_female_black_white.jpg', '动物', 2),
+  makeCard('羊', 'https://upload.wikimedia.org/wikipedia/commons/9/99/Sheep_in_field.JPG', '动物', 2),
+  makeCard('金鱼', 'https://upload.wikimedia.org/wikipedia/commons/e/e9/Goldfish3.jpg', '动物', 3),
+  makeCard('蝴蝶', 'https://upload.wikimedia.org/wikipedia/commons/6/63/Monarch_In_May.jpg', '动物', 3),
+  makeCard('蚱蜢', 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Grasshopper_1.jpg', '动物', 3),
+  makeCard('熊猫', 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Panda_Cub_from_Wolong%2C_Sichuan%2C_China.JPG', '动物', 2),
   // vehicles
-  proxyCard('汽车', '2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg', '交通工具', 1, 50),
-  proxyCard('自行车', 'Bicycle_Abbey_Sprotbrough.jpg', '交通工具', 2, 51),
-  proxyCard('公交车', 'Bus_in_Hong_Kong.jpg', '交通工具', 2, 52),
-  proxyCard('飞机', 'Airbus_A380_blue_sky.jpg', '交通工具', 2, 53),
-  proxyCard('救护车', 'Ambulance_Berlin.jpg', '交通工具', 3, 54),
+  makeCard('汽车', 'https://upload.wikimedia.org/wikipedia/commons/a/a4/2019_Toyota_Corolla_Icon_Tech_VVT-i_Hybrid_1.8.jpg', '交通工具', 1),
+  makeCard('自行车', 'https://upload.wikimedia.org/wikipedia/commons/c/cb/Bicycle_Abbey_Sprotbrough.jpg', '交通工具', 2),
+  makeCard('公交车', 'https://upload.wikimedia.org/wikipedia/commons/0/07/Bus_in_Hong_Kong.jpg', '交通工具', 2),
+  makeCard('飞机', 'https://upload.wikimedia.org/wikipedia/commons/8/82/Airbus_A380_blue_sky.jpg', '交通工具', 2),
+  makeCard('救护车', 'https://upload.wikimedia.org/wikipedia/commons/7/78/Ambulance_Berlin.jpg', '交通工具', 3),
   // clothing
-  proxyCard('鞋子', 'Shoes_-_Nike_Air_Jordan_1_Retro_Banned_2016_-_sneakers.jpg', '衣物', 2, 60),
-  proxyCard('裤子', 'Blue_Denim_Jeans.jpg', '衣物', 2, 61),
-  proxyCard('围巾', 'Red_scarf.jpg', '衣物', 2, 62),
-  proxyCard('帽子', 'Winter_hat.jpg', '衣物', 2, 63),
-  proxyCard('手套', 'Glove.jpg', '衣物', 3, 64),
+  makeCard('鞋子', 'https://upload.wikimedia.org/wikipedia/commons/3/35/Shoes_-_Nike_Air_Jordan_1_Retro_Banned_2016_-_sneakers.jpg', '衣物', 2),
+  makeCard('裤子', 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Blue_Denim_Jeans.jpg', '衣物', 2),
+  makeCard('围巾', 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Red_scarf.jpg', '衣物', 2),
+  makeCard('帽子', 'https://upload.wikimedia.org/wikipedia/commons/9/98/Winter_hat.jpg', '衣物', 2),
+  makeCard('手套', 'https://upload.wikimedia.org/wikipedia/commons/5/59/Glove.jpg', '衣物', 3),
   // body parts
-  proxyCard('手', 'Hand_(sculpture).jpg', '身体部位', 1, 70),
-  proxyCard('眼睛', 'Human_eye.jpg', '身体部位', 1, 71),
-  proxyCard('脚', 'Pair_of_feet.jpg', '身体部位', 2, 72),
-  proxyCard('脸', 'Face_(Unsplash).jpg', '身体部位', 2, 73),
+  makeCard('手', 'https://upload.wikimedia.org/wikipedia/commons/6/66/Hand_%28sculpture%29.jpg', '身体部位', 1),
+  makeCard('眼睛', 'https://upload.wikimedia.org/wikipedia/commons/0/0a/Human_eye.jpg', '身体部位', 1),
+  makeCard('脚', 'https://upload.wikimedia.org/wikipedia/commons/b/ba/Pair_of_feet.jpg', '身体部位', 2),
+  makeCard('脸', 'https://upload.wikimedia.org/wikipedia/commons/7/70/Face_%28Unsplash%29.jpg', '身体部位', 2),
 ]
 
 const trainingStore = useTrainingStore()
